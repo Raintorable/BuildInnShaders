@@ -40,6 +40,12 @@
                 float2 uv : TEXCOORD0;
                 float4 worldPosition : TEXCOORD1;
             };
+
+
+            float4 GetGlobalVertexPosition(float4 vertexPosition)
+            {
+                return mul(unity_ObjectToWorld, vertexPosition);
+            }
             
             
             OutputData vert(InputData input)
@@ -48,7 +54,7 @@
                 
                 output.vertexPosition = UnityObjectToClipPos(input.vertexPosition);
                 output.uv = input.uv;
-                output.worldPosition = mul(unity_ObjectToWorld, input.vertexPosition);
+                output.worldPosition = GetGlobalVertexPosition(input.vertexPosition);
                 
                 return output;
             }
